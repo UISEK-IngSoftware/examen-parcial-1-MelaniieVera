@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pelisflix - Catálogo</title>
+    <link rel="stylesheet" href="{% static 'pelisflix/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'pelisflix/styles.css' %}">
+    <script src="{% static 'pelisflix/script.js' %}"></script>
+    
+
+</head>
+<body class="container py-4">
+
+    <h1 class="text-center text-primary mb-5">Catálogo de Películas</h1>
+
+    <div class="row">
+        {% for movie in movies %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <img src="{% static 'pelisflix/img/' %}{{ movie.image_filename }}" class="card-img-top" alt="{{ movie.title }}">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <h6 class="card-subtitle text-muted mb-2">{{ movie.release_year }}</h6>
+                    <p class="card-text">{{ movie.synopsis|truncatewords:20 }}</p>
+                    <a href="/movie/{{ movie.id }}/" class="btn btn-primary btn-sm">Ver detalles</a>
+
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No hay películas disponibles.</p>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
